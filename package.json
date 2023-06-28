@@ -15,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@picocss/pico": "^1.5.10",
     "@plumejs/core": "^4.0.1"
   },
   "devDependencies": {
