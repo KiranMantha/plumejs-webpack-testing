@@ -7,6 +7,13 @@ import globalstyles from './styles/styles.scss?inline';
   root: true
 })
 export class AppComponent {
+  title = '';
+  mount() {
+    setTimeout(() => {
+      this.title = 'Hello world';
+    }, 2000);
+  }
+
   render() {
     return html`
       <main class="center">
@@ -16,6 +23,7 @@ export class AppComponent {
           Please check
           <a href="https://github.com/KiranMantha/plumejs">here</a> for documentation
         </p>
+        ${this.title ? `<div>${this.title}</div>` : `<div title='loader'>Loading</div>`}
       </main>
     `;
   }
