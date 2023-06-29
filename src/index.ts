@@ -16,14 +16,14 @@ export class AppComponent {
 
   render() {
     return html`
-      <main class="center">
+      <main class="center" data-testid="container">
         <img src="./images/logo.jpg" />
         <h1>Welcome to PlumeJS</h1>
         <p>
           Please check
           <a href="https://github.com/KiranMantha/plumejs">here</a> for documentation
         </p>
-        ${this.title ? `<div>${this.title}</div>` : `<div title='loader'>Loading</div>`}
+        ${this.title ? `<div data-testid='content'>${this.title}</div>` : `<div data-testid='loader'>Loading</div>`}
       </main>
     `;
   }

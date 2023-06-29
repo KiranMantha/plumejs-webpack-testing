@@ -1,5 +1,4 @@
-import { Fixture, TestBed, flushMicroTasks } from '@plumejs/testing';
-import { getByText, waitFor } from '@testing-library/dom';
+import { Fixture, TestBed, flushMicroTasks, getByTestId, getByText, waitFor } from '@plumejs/testing';
 import { vi } from 'vitest';
 import { AppComponent } from './index';
 
@@ -10,6 +9,7 @@ describe('@plumejs/core Component', () => {
     vi.useFakeTimers();
     appRoot = await TestBed.MockComponent(AppComponent);
     const { componentInstance, element } = appRoot;
+    expect(getByTestId(element, 'container')).toBeInTheDocument();
     const h1 = element.querySelector('h1');
     expect(h1.innerHTML).toBe('Welcome to PlumeJS');
     // testing component internals
@@ -21,10 +21,12 @@ describe('@plumejs/core Component', () => {
 
     // testing dom changes
     expect(getByText(element, 'Loading')).toBeInTheDocument();
+    expect(getByTestId(element, 'loader')).toBeInTheDocument();
     vi.advanceTimersByTime(2000);
     expect(componentInstance.title).toBe('Hello world');
     await waitFor(flushMicroTasks());
     expect(getByText(element, componentInstance.title)).toBeInTheDocument();
+    expect(getByTestId(element, 'content')).toBeInTheDocument();
   });
 
   afterEach(() => {
