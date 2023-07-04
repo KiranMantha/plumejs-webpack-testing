@@ -1,4 +1,4 @@
-import { Fixture, TestBed, flushMicroTasks, screen, waitFor } from '@plumejs/testing';
+import { Fixture, TestBed, fireEvent, flushMicroTasks, screen, waitFor } from '@plumejs/testing';
 import { vi } from 'vitest';
 import { AppComponent } from './index';
 
@@ -28,6 +28,16 @@ describe('@plumejs/core Component', () => {
     expect(componentInstance.title).toBe('Hello world');
     expect(screen.getByShadowText(componentInstance.title)).toBeInTheDocument();
     expect(screen.getByShadowTestId('content')).toBeInTheDocument();
+  });
+
+  it('should display greeting on button click', async () => {
+    const { componentInstance } = appRoot;
+    expect(screen.queryByShadowTestId('greeting-placeholder')).not.toBeInTheDocument();
+    const btn = screen.getByShadowTestId('btn-greet');
+    fireEvent.click(btn);
+    await waitFor(flushMicroTasks());
+    expect(screen.getByShadowTestId('greeting-placeholder')).toBeInTheDocument();
+    expect(screen.getByShadowText(componentInstance.greeting)).toBeInTheDocument();
   });
 
   afterEach(() => {
